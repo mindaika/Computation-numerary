@@ -1,5 +1,10 @@
 package com.company;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
 /**
  * Created by Randall on 11/3/2014.
  */
@@ -7,26 +12,26 @@ package com.company;
 public class Newtsection {
     public static void main(String args[]) throws Exception {
         Newtsection newnewt = new Newtsection();
-        newnewt.newton(5, 100, Math.pow(10,-10));
+        System.setOut(new PrintStream(new FileOutputStream("F:\\OneDrive\\Documents\\CS451\\CP32P1output.txt")));
+        newnewt.newton(7.7, 100, Math.pow(10,-20));
+        newnewt.newton(4.5, 100, Math.pow(10,-20));
     }
 
     public void newton(double x0, int M, double delta) throws Exception {
+        System.out.format("%5s%20s%20s\n", "k", "x", "f(x)");
         double epsilon = MachineEpsilon.calculateMachineEpsilonDouble();
-        double v = Math.tan(x0);
-        System.out.println("0 = 0");
-        System.out.println("x0 = " + x0);
-        System.out.println("v = " + v + "\n");
+        double v = f(x0);
+        double x1;
+        System.out.format("%5d%20G%20G\n", 0, x0, v);
         if (Math.abs(v) < epsilon) {
             System.out.println("Stopping because of v");
             return;
         }
         for (int k=1; k<M; k++) {
-            double x1 = (x0 - (v / fPrime(x0)));
+            x1 = (x0 - (v / fPrime(x0)));
             v = f(x1);
-            System.out.println("k = " + k);
-            System.out.println("x = " + x1);
-            System.out.println("f(x) = " + v + "\n");
-            if (((Math.abs(x1) - Math.abs(x0)) < delta) || (Math.abs(v) < epsilon)) {
+            System.out.format("%5d%20G%20G\n", k, x1, v);
+            if (((Math.abs(x1 - x0)) < delta) || (Math.abs(v) < epsilon)) {
                 System.out.println("Stopping because I hit an error bound");
                 return;
             }
@@ -35,11 +40,14 @@ public class Newtsection {
     }
 
     public double f(double x){
-        return Math.tan(x);
+        return (x - Math.tan(x));
+//        return (Math.pow(Math.E,x) - 1.5 - Math.atan(x));
     }
 
     public double fPrime(double x) {
-        return Math.pow (sec(x),2);
+        return (-1)*(Math.pow(Math.tan(x),2));
+//        return Math.pow (sec(x),2);
+//        return (Math.pow(Math.E,x) - Math.pow((1 + Math.pow(x,2)),-1));
     }
 
     /**
