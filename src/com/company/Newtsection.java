@@ -12,7 +12,7 @@ import java.io.PrintStream;
 public class Newtsection {
     public static void main(String args[]) throws Exception {
         Newtsection newnewt = new Newtsection();
-        System.setOut(new PrintStream(new FileOutputStream("F:\\OneDrive\\Documents\\CS451\\CP32P1output.txt")));
+//        System.setOut(new PrintStream(new FileOutputStream("F:\\OneDrive\\Documents\\CS451\\CP32P1output.txt")));
         newnewt.newton(7.7, 100, Math.pow(10,-20));
         newnewt.newton(4.5, 100, Math.pow(10,-20));
     }
